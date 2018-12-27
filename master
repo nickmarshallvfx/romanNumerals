@@ -1,0 +1,108 @@
+### Roman Numeral Conversion###
+### v2.1.0 :: Nick Marshall###
+
+
+
+#Take user input and validate.
+
+while True:
+    userNum = input ('Enter a number between 1 and 1000 to be converted to Roman Numerals: ')
+    decimalPoints = 0
+    decimalIndex = None
+    for i in userNum:
+        if i == '.':
+            decimalIndex = userNum.index('.')
+            decimalPoints += 1
+    if userNum[0] == '-':
+        if '.' in userNum:
+            decimalIndex = userNum.index('.')
+        if userNum[1:].isdecimal():
+            print ('Your entry must not be a negative number. ',end='')
+        elif decimalPoints == 1 and userNum[:decimalIndex].isdecimal and userNum[decimalIndex+1:].isdecimal:
+            print ('Your entry must not be a negative number or contain decimal points. ', end='')
+        else:
+            print ('Your entry must only contain numbers. ',end='')
+    elif decimalPoints == 1:
+        if userNum[:decimalIndex].isdecimal or userNum[decimalIndex+1:].isdecimal:
+            print ('Your number must be a whole number without decimal points. ', end='')
+    elif userNum.isdecimal() == False:
+        print ('Your entry must only contain numbers. ', end='')
+    elif int(userNum) < 1 or int(userNum) >1000:
+        print ('Your entry is outside of the acceptable number range. ', end='')
+    else:
+        break
+
+
+
+#Define the roman numerals as variables.
+    
+romanI = 'I'
+romanV = 'V'
+romanX = 'X'
+romanL = 'L'
+romanC = 'C'
+romanD = 'D'
+romanM = 'M'
+
+romanList = [['C', 'D', 'M'],
+             ['X', 'L', 'C'],
+             ['I', 'V', 'X']]
+
+
+endResult = None
+
+def ones(onesEntry):
+    if int(onesEntry) == 1 or int(onesEntry) == 2 or int(onesEntry) == 3:
+        onesResult = romanI * int(onesEntry)
+    elif int(onesEntry) == 6 or int(onesEntry) == 7 or int(onesEntry) == 8:
+        onesResult = romanV + (romanI * (int(onesEntry)-5))
+    elif int(onesEntry) == 4:
+        onesResult = romanI + romanV
+    elif int(onesEntry) == 5:
+        onesResult = romanV
+    else:
+        onesResult = romanI + romanX
+    print (onesResult, end='')
+
+def tens(tensEntry):
+    if int(tensEntry) == 1 or int(tensEntry) == 2 or int(tensEntry) == 3:
+        tensResult = romanX * int(tensEntry)
+    elif int(tensEntry) == 6 or int(tensEntry) == 7 or int(tensEntry) == 8:
+        tensResult = romanL + (romanX * (int(tensEntry)-5))
+    elif int(tensEntry) == 4:
+        tensResult = romanX + romanL
+    elif int(tensEntry) == 5:
+        tensResult = romanL
+    else:
+        tensResult = romanX + romanC
+    print (tensResult, end='')
+
+def hundreds(hundredsEntry):
+    if int(hundredsEntry) == 1 or int(hundredsEntry) == 2 or int(hundredsEntry) == 3:
+        hundredsResult = romanC * int(hundredsEntry)
+    elif int(hundredsEntry) == 6 or int(hundredsEntry) == 7 or int(hundredsEntry) == 8:
+        hundredsResult = romanD + (romanC * (int(hundredsEntry)-5))
+    elif int(hundredsEntry) == 4:
+        hundredsResult = romanC + romanD
+    elif int(hundredsEntry) == 5:
+        hundredsResult = romanD
+    else:
+        hundredsResult = romanC + romanM
+    print (hundredsResult, end='')
+
+
+
+
+if len(userNum) == 1:
+    ones(userNum)
+elif len(userNum) == 2:
+    tens(userNum[0])
+    ones(userNum[1])
+elif len(userNum) == 3:
+    hundreds(userNum[0])
+    tens(userNum[1])
+    ones(userNum[2])
+else:
+    print (romanM)
+
+#print (romanList)
